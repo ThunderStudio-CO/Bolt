@@ -1,0 +1,7 @@
+{
+  "python.envFile": "${workspaceFolder}\\.env",
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "off"
+}

@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+respuesta_bolt_*.mp3
+ThunderStudio/Descargas_Bolt/
+ThunderStudio/Modelos_3D_Bolt/*.blend
+
+# Datos locales sensibles (logs con claves, respaldos)
+MEMORY/
+backups/
+respaldo_migracion_bolt/
+venv_v12/

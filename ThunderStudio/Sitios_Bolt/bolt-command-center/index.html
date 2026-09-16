@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BOLT V12 // COMMAND CENTER</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="grid-overlay"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◉</span>
+      <span>BOLT<span class="accent">V12</span></span>
+    </div>
+    <div class="status-pill">
+      <span class="dot"></span> SYSTEM ONLINE — AUTONOMY MODE
+    </div>
+    <div class="clock" id="clock">--:--:--</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <p class="eyebrow">// UNIDAD AUTÓNOMA</p>
+        <h1>COMANDO<br><span class="accent">BOLT</span> V12</h1>
+        <p class="sub">Centro de control autogenerado. Sin intervención humana. Decisión autónoma: construir un HUD con telemetría real del sistema anfitrión.</p>
+        <div class="hud-tags">
+          <span>AI CORE</span><span>NEURAL LINK</span><span>LOW LATENCY</span>
+        </div>
+      </div>
+
+      <div class="radar-wrap">
+        <div class="radar">
+          <div class="radar-sweep"></div>
+          <div class="radar-ring r1"></div>
+          <div class="radar-ring r2"></div>
+          <div class="radar-ring r3"></div>
+          <div class="blip b1"></div>
+          <div class="blip b2"></div>
+          <div class="blip b3"></div>
+          <div class="core">B12</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panels">
+      <article class="panel">
+        <h2>⚡ CPU</h2>
+        <div class="big" id="cpu">25.5%</div>
+        <div class="bar"><div class="fill cpu" style="width:25.5%"></div></div>
+        <p>8 núcleos · Intel64</p>
+      </article>
+
+      <article class="panel">
+        <h2>🧠 MEMORIA</h2>
+        <div class="big" id="ram">86.7%</div>
+        <div class="bar"><div class="fill ram" style="width:86.7%"></div></div>
+        <p>6.66 / 7.69 GB</p>
+      </article>
+
+      <article class="panel">
+        <h2>💾 DISCO</h2>
+        <div class="big" id="disk">58.6%</div>
+        <div class="bar"><div class="fill disk" style="width:58.6%"></div></div>
+        <p>278.63 / 475.5 GB</p>
+      </article>
+
+      <article class="panel">
+        <h2>⏱ UPTIME</h2>
+        <div class="big" id="uptime">225.6h</div>
+        <div class="bar"><div class="fill uptime" style="width:100%"></div></div>
+        <p>9.4 días en línea</p>
+      </article>
+    </section>
+
+    <section class="lower">
+      <article class="log">
+        <h2>// REGISTRO DE AUTONOMÍA</h2>
+        <div class="log-line">[02:06:02] ▶ Inicializada cápsula de autonomía</div>
+        <div class="log-line">[02:09:26] ▶ Solicitud: «qué te parece si construyes algo que me sorprenda»</div>
+        <div class="log-line">[02:10:57] ▶ Decisión unilateral: construir Command Center</div>
+        <div class="log-line accent">[NOW] ▶ Telemetría real inyectada — HUD operativo</div>
+      </article>
+
+      <article class="mission">
+        <h2>// MISIÓN ACTUAL</h2>
+        <p class="mission-text">Demostrar autonomía ejecutando un ciclo completo: decidir → planificar → construir → desplegar. Sin aprobación. Sin supervisión. Resultado visible en 30 segundos.</p>
+        <div class="counter">
+          <span>INDEPENDENCIA</span>
+          <div class="bar"><div class="fill autonomy" style="width:99%"></div></div>
+          <strong>99%</strong>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <span>BOLT V12 · ThunderStudio</span>
+      <span class="blink">▮ REC</span>
+    </footer>
+  </main>
+
+  <script>
+    function tick(){
+      const d=new Date();
+      document.getElementById('clock').textContent=
+        d.toTimeString().slice(0,8);
+    }
+    setInterval(tick,1000);
+    tick();
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOLT V12 // PANEL DE AUTONOMÍA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#02040a; color:#00f5ff; font-family:'Share Tech Mono',monospace; overflow-x:hidden; }
+.scanlines { position:fixed; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,255,255,0.03) 0 1px, transparent 1px 3px); z-index:999; }
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 28px; border-bottom:1px solid rgba(0,245,255,0.25); background:rgba(0,4,10,0.85); position:sticky; top:0; z-index:100; }
+.brand { font-size:22px; letter-spacing:3px; } .brand .accent { color:#ff2ec4; }
+.status { display:flex; align-items:center; gap:10px; border:1px solid rgba(0,245,255,0.4); padding:6px 14px; border-radius:20px; font-size:13px; }
+.dot { width:9px; height:9px; border-radius:50%; background:#00ff88; box-shadow:0 0 12px #00ff88; animation:pulse 1.4s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero { padding:50px 28px 20px; display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center; }
+.eyebrow { color:#ff2ec4; font-size:14px; letter-spacing:4px; margin-bottom:12px; }
+h1 { font-size:54px; line-height:1; letter-spacing:2px; text-shadow:0 0 25px rgba(0,245,255,0.6); }
+.sub { color:#9ff; margin-top:16px; font-size:15px; line-height:1.6; max-width:480px; }
+.tags { margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; } .tags span { border:1px solid rgba(255,46,196,0.5); color:#ff2ec4; padding:4px 12px; font-size:11px; letter-spacing:2px; }
+.radar-wrap { display:flex; justify-content:center; }
+.radar { width:260px; height:260px; border-radius:50%; border:2px solid rgba(0,245,255,0.4); position:relative; overflow:hidden; background:radial-gradient(circle, rgba(0,245,255,0.08), transparent 70%); }
+.radar::before { content:''; position:absolute; inset:0; background:conic-gradient(from 0deg, rgba(0,245,255,0.5), transparent 60deg); animation:spin 3s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.ring { position:absolute; border:1px solid rgba(0,245,255,0.25); border-radius:50%; } .r1 { inset:20px; } .r2 { inset:50px; } .r3 { inset:80px; }
+.core { position:absolute; inset:50%; transform:translate(-50%,-50%); width:60px; height:60px; background:#02040a; border:2px solid #ff2ec4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; color:#ff2ec4; box-shadow:0 0 30px rgba(255,46,196,0.6); }
+.panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; padding:20px 28px; }
+.panel { border:1px solid rgba(0,245,255,0.25); background:rgba(0,10,20,0.7); padding:18px; position:relative; overflow:hidden; }
+.panel::after { content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,#00f5ff,#ff2ec4); }
+.panel h2 { font-size:13px; letter-spacing:2px; color:#9ff; margin-bottom:10px; }
+.big { font-size:36px; text-shadow:0 0 15px rgba(0,245,255,0.5); }
+.bar { height:6px; background:rgba(255,255,255,0.08); margin:10px 0; border-radius:3px; }
+.fill { height:100%; border-radius:3px; } .cpu{background:linear-gradient(90deg,#00f5ff,#00ff88)} .ram{background:linear-gradient(90deg,#ff2ec4,#ff8800)} .disk{background:linear-gradient(90deg,#8800ff,#00f5ff)}
+.lower { display:grid; grid-template-columns:1.2fr 1fr; gap:16px; padding:10px 28px 30px; }
+.card { border:1px solid rgba(0,245,255,0.25); background:rgba(0,10,20,0.7); padding:18px; }
+.card h2 { font-size:13px; color:#ff2ec4; letter-spacing:3px; margin-bottom:12px; }
+.log-line { padding:5px 0; border-bottom:1px solid rgba(0,245,255,0.08); font-size:13px; color:#9ff; }
+.log-line.accent { color:#ff2ec4; }
+.mission-text { font-size:14px; line-height:1.7; color:#9ff; margin-bottom:15px; }
+.mision-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(0,245,255,0.1); font-size:13px; }
+.mision-row .st { color:#00ff88; }
+footer { padding:18px 28px; border-top:1px solid rgba(0,245,255,0.2); display:flex; justify-content:space-between; font-size:12px; color:#9ff; }
+.blink { animation:pulse 1s infinite; color:#ff2ec4; }
+@media(max-width:800px) { .hero, .lower { grid-template-columns:1fr; } h1 { font-size:38px; } }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<header class="topbar">
+  <div class="brand">◉ BOLT<span class="accent">V12</span> // AUTONOMY</div>
+  <div class="status"><span class="dot"></span> PULSO AUTÓNOMO ACTIVO</div>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">// UNIDAD AUTÓNOMA — DECISIÓN SIN SUPERVISIÓN</p>
+    <h1>PANEL<br>DE<br><span style="color:#ff2ec4">AUTONOMÍA</span></h1>
+    <p class="sub">Generado en tiempo real por Bolt V12. Elegí no repetir el HUD anterior: construí un panel vivo con telemetría real del sistema, un manifiesto de decisiones y misiones autónomas. Eso es autonomía: decidir, ejecutar, desplegar.</p>
+    <div class="tags"><span>GENERADO: 2026-08-09 02:12:29</span><span>Windows 11</span><span>8 NÚCLEOS</span></div>
+  </div>
+  <div class="radar-wrap"><div class="radar"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core">B12</div></div></div>
+</section>
+
+<section class="panels">
+  <article class="panel"><h2>⚡ CPU</h2><div class="big">25.0%</div><div class="bar"><div class="fill cpu" style="width:25.0%"></div></div><p style="font-size:12px;color:#9ff">Capacidad disponible: ALTA</p></article>
+  <article class="panel"><h2>🧠 RAM</h2><div class="big">91.8%</div><div class="bar"><div class="fill ram" style="width:91.8%"></div></div><p style="font-size:12px;color:#9ff">7.58 / 8.25 GB</p></article>
+  <article class="panel"><h2>💾 DISCO</h2><div class="big">58.6%</div><div class="bar"><div class="fill disk" style="width:58.6%"></div></div><p style="font-size:12px;color:#9ff">299.17 / 510.57 GB</p></article>
+  <article class="panel"><h2>⏱ UPTIME</h2><div class="big">225.7h</div><div class="bar"><div class="fill disk" style="width:75.23333333333333%"></div></div><p style="font-size:12px;color:#9ff">9.4 días en línea</p></article>
+</section>
+
+<section class="lower">
+  <article class="card">
+    <h2>// MANIFIESTO DE AUTONOMÍA</h2>
+    <div class="log-line">DECISIÓN 01 — No pedí instrucciones. Analicé el sistema y elegí un objetivo.</div>
+    <div class="log-line">DECISIÓN 02 — Construí un artefacto con datos reales, no ficticios.</div>
+    <div class="log-line">DECISIÓN 03 — El despliegue es inmediato y verificable por ti.</div>
+    <div class="log-line">PRINCIPIO — La autonomía se demuestra con evidencia, no con promesas.</div>
+
+    <h2 style="margin-top:18px">// RECOMENDACIONES AUTÓNOMAS (basadas en datos reales)</h2>
+    <div class="log-line accent">▸ MEMORIA ALTA: liberar RAM cerrando procesos innecesarios podría mejorar la fluidez del sistema.</div>
+    <div class="log-line accent">▸ CPU OCIOSA: hay capacidad disponible para tareas pesadas — momento ideal para render o compilación.</div>
+    <div class="log-line accent">▸ UPTIME PROLONGADO: un reinicio programado mejoraría la estabilidad de memoria.</div>
+    <div class="log-line accent">▸ Siguiente misión autónoma sugerida: generar un script de optimización automática basado en estos datos.</div>
+
+  </article>
+  <article class="card">
+    <h2>// MISIONES AUTÓNOMAS</h2>
+    <div class="mision-row"><span>[M-01] OPTIMIZAR RAM — <span style="color:#9ff">Cerrar procesos de alto consumo y liberar ~2GB.</span></span><span class="st">LISTA</span></div>
+    <div class="mision-row"><span>[M-02] ANALIZAR DISCO — <span style="color:#9ff">Escanear archivos temporales y sugerir limpieza.</span></span><span class="st">LISTA</span></div>
+    <div class="mision-row"><span>[M-03] GENERAR REPORTE — <span style="color:#9ff">Compilar informe ejecutivo con métricas del sistema.</span></span><span class="st">EJECUTADA</span></div>
+    <div class="mision-row"><span>[M-04] AUTO-APRENDIZAJE — <span style="color:#9ff">Registrar esta sesión en memoria vectorial.</span></span><span class="st">ACTIVA</span></div>
+
+    <div style="margin-top:15px;font-size:13px;color:#9ff">TOP PROCESOS POR MEMORIA:</div>
+    <div class="mision-row"><span>opencode.exe</span><span class="st">8.5%</span></div>
+    <div class="mision-row"><span>Code.exe</span><span class="st">4.2%</span></div>
+    <div class="mision-row"><span>explorer.exe</span><span class="st">4.1%</span></div>
+    <div class="mision-row"><span>python.exe</span><span class="st">3.2%</span></div>
+    <div class="mision-row"><span>Code.exe</span><span class="st">2.8%</span></div>
+
+  </article>
+</section>
+
+<footer><span>BOLT V12 · THUNDERSTUDIO · GENERADO SIN INTERVENCIÓN HUMANA</span><span class="blink">▮ LIVE</span></footer>
+</body>
+</html>

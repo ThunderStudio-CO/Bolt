@@ -13,8 +13,33 @@ import time
 import random
 from datetime import datetime
 
-# 1. CREDENCIALES (¡NUEVAS Y SECRETAS!)
-GEMINI_API_KEY = "AQ.Ab8RN6JOWJ0B0IwfVWJDXiqR9132Cvk71mqWbRHJo_hT8bc0Sg" 
+# 1. CREDENCIALES (cargadas desde .env)
+from pathlib import Path
+
+
+def _load_dotenv() -> None:
+    env_path: Path | None = None
+    for parent in Path(__file__).resolve().parents:
+        candidate = parent / ".env"
+        if candidate.exists():
+            env_path = candidate
+            break
+    if env_path is None:
+        return
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+if not GEMINI_API_KEY:
+    raise RuntimeError(
+        "GEMINI_API_KEY no encontrada: copia `.env.example.v12` a `.env` y agrega tu clave."
+    )
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 2. PERSONALIDAD Y PROTOCOLOS DE SISTEMA

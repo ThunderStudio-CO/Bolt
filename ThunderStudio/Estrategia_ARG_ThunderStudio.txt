@@ -1,0 +1,17 @@
+ESTRATEGIA ARG: THUNDERSTUDIO
+
+OBJETIVO: Lanzamiento de marca mediante narrativa críptica (ARG).
+DURACIÓN: Meses.
+
+FASES:
+1. FASE 1: El Hallazgo. Post anónimo en 4chan (/x/ y /g/). Narrativa: Encontré algo raro en logs antiguos.
+2. FASE 2: La madriguera. Enlaces a archivos encriptados y GitHub 'legacy'.
+3. FASE 3: Revelación. La landing page corrupta empieza a mostrar la nueva identidad de ThunderStudio a medida que los usuarios resuelven acertijos.
+
+REGLAS DE ORO:
+- Nunca admitir que somos nosotros hasta el final.
+- Progresión de dificultad: De lo simple a lo complejo.
+- Usar herramientas de cifrado y esteganografía reales para que el desafío sea técnico.
+
+POST /x/ CONCEPTUAL:
+'Encontré este dump en una partición oculta de un server que compré de segunda mano. Los logs no tienen sentido, parecen coordenadas o fragmentos de una frecuencia de radio. Si alguien sabe leer esto, avise.'
