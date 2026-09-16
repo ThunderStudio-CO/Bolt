@@ -52,6 +52,7 @@ class BoltConfig:
     duplicate_window: int
     max_repeat_tool: int
     max_tools_per_turn: int
+    loop_free_tools: tuple[str, ...]
 
     # Trace
     trace_enabled: bool
@@ -94,7 +95,17 @@ def load_config() -> BoltConfig:
         vector_enabled=os.getenv("BOLT_VECTOR_ENABLED", "true").lower() == "true",
         duplicate_window=int(os.getenv("BOLT_DUPLICATE_WINDOW", "4")),
         max_repeat_tool=int(os.getenv("BOLT_MAX_REPEAT_TOOL", "3")),
-        max_tools_per_turn=int(os.getenv("BOLT_MAX_TOOLS_PER_TURN", "6")),
+        max_tools_per_turn=int(os.getenv("BOLT_MAX_TOOLS_PER_TURN", "0")),
+        loop_free_tools=tuple(
+            t.strip().lower()
+            for t in os.getenv(
+                "BOLT_LOOP_FREE_TOOLS",
+                "list_directory,read_text_file,search_files,get_file_info,"
+                "git_status,git_log,git_diff,web_search,fetch_webpage,"
+                "get_system_info,get_disk_usage,get_network_info,get_running_processes",
+            ).split(",")
+            if t.strip()
+        ),
         trace_enabled=os.getenv("BOLT_TRACE_ENABLED", "true").lower() == "true",
         log_retention_days=int(os.getenv("BOLT_LOG_RETENTION_DAYS", "7")),
         monitor_interval=int(os.getenv("BOLT_MONITOR_INTERVAL", "30")),

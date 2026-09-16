@@ -218,7 +218,7 @@ class BoltAgent:
                     if auto_result is not None:
                         last_result = auto_result
                         tools_executed += 1
-                        if tools_executed >= self.config.max_tools_per_turn and last_result.ok:
+                        if self.config.max_tools_per_turn > 0 and tools_executed >= self.config.max_tools_per_turn and last_result.ok:
                             summary = self._summary_from_observations(observations)
                             final = f"He completado las acciones necesarias: {summary}"
                             self.episodic.add("assistant", final)
@@ -278,7 +278,10 @@ class BoltAgent:
                     self._store_in_vector(user_message, final)
                     self._emit("final", {"response": final}, f"Respuesta final: {final[:300]}")
                     return final
-                elif tool_counts.get(tool_name, 0) >= self.config.max_repeat_tool:
+                elif (
+                    tool_name not in self.config.loop_free_tools
+                    and tool_counts.get(tool_name, 0) >= self.config.max_repeat_tool
+                ):
                     self._emit("guard", {"tool": tool_name, "args": args, "kind": "repeat_tool"}, f"Herramienta {tool_name} ejecutada {tool_counts.get(tool_name, 0)} veces; bloqueando repetición.")
                     summary = self._summary_from_observations(observations)
                     final = f"Detuve la repetición de {tool_name}: ya lo ejecuté varias veces en este turno. {summary}"
@@ -304,7 +307,7 @@ class BoltAgent:
                     "result": asdict(result),
                 })
 
-                if tools_executed >= self.config.max_tools_per_turn and last_result.ok:
+                if self.config.max_tools_per_turn > 0 and tools_executed >= self.config.max_tools_per_turn and last_result.ok:
                     summary = self._summary_from_observations(observations)
                     final = f"He completado las acciones necesarias: {summary}"
                     self.episodic.add("assistant", final)
@@ -587,7 +590,9 @@ Total de herramientas: {len(self.tools)}
             candidates.append(("open_url", {"url": url}))
         for tool, args in candidates:
             sig = self._tool_sig(tool, args)
-            if sig in executed or sig in recent_sigs or tool_counts.get(tool, 0) >= self.config.max_repeat_tool:
+            if sig in executed or sig in recent_sigs:
+                continue
+            if tool not in self.config.loop_free_tools and tool_counts.get(tool, 0) >= self.config.max_repeat_tool:
                 continue
             self._emit("tool_started", {"tool": tool, "args": args}, f"[AUTO] Ejecutando herramienta: {tool}{args}")
             result = self._execute_tool(tool, args)
